@@ -1,13 +1,17 @@
 <?php
 
-class SettingsTest extends TestCase
+namespace Code4\Settings\Test;
+
+use Code4\Settings\SettingsBlock;
+
+class SettingsTest extends \PHPUnit_Framework_TestCase
 {
     public function testGettingAndSetting() {
 
         $testArray = [];
         $testDbArray = [];
 
-        $settings = new \App\Components\Settings\SettingsBlock('global');
+        $settings = new SettingsBlock('global');
         $settings->testInit($testArray, $testDbArray);
 
         $this->assertEquals(null, $settings->get('resource_types.machine.id'));
@@ -70,7 +74,7 @@ class SettingsTest extends TestCase
             ]
         ];
 
-        $settings = new \App\Components\Settings\SettingsBlock('global');
+        $settings = new SettingsBlock('global');
         $settings->testInit($testArray, $testDbArray, true);
 
         $this->assertEquals('truck', $settings->get('resource_types.external.icon'));
@@ -83,7 +87,7 @@ class SettingsTest extends TestCase
 
         $settingBlock = $this->getTestSettingBlock('testBlock');
 
-        $settingsFactory = $this->getMockBuilder('\App\Components\Settings\SettingsFactory')
+        $settingsFactory = $this->getMockBuilder('Code4\Settings\SettingsFactory')
                                 ->setConstructorArgs([[],null,'',false])
                                 ->setMethods(['instantiateBlock'])
                                 ->getMock();
@@ -102,13 +106,13 @@ class SettingsTest extends TestCase
         $this->assertEquals(false, $settingsFactory->hasBlock('notExistingBlock'));
 
         //TEST 3 - Check getBlock
-        $this->assertEquals('App\Components\Settings\SettingsBlock', get_class($settingsFactory->getBlock('testBlock')));
+        $this->assertEquals('Code4\Settings\SettingsBlock', get_class($settingsFactory->getBlock('testBlock')));
     }
 
     public function testSettingsFactoryLazyLoad()
     {
         $settingBlock = $this->getTestSettingBlock('testBlock');
-        $settingsFactory = $this->getMockBuilder('\App\Components\Settings\SettingsFactory')
+        $settingsFactory = $this->getMockBuilder('Code4\Settings\SettingsFactory')
             ->setConstructorArgs([[], null, '', true])
             ->setMethods(['instantiateBlock'])
             ->getMock();
@@ -125,7 +129,7 @@ class SettingsTest extends TestCase
         $this->assertEquals(false, $settingsFactory->hasBlock('notExistingBlock'));
 
         //TEST 3 - Check getBlock
-        $this->assertEquals('App\Components\Settings\SettingsBlock', get_class($settingsFactory->getBlock('testBlock')));
+        $this->assertEquals('Code4\Settings\SettingsBlock', get_class($settingsFactory->getBlock('testBlock')));
 
         //TEST 4 - Ponieważ w teście 3 został wywołany getBlock() - testBlock powinien być już załadowany
         $blocks = $settingsFactory->getBlocksCollection();
@@ -184,14 +188,14 @@ class SettingsTest extends TestCase
             ]
         ];
 
-        $settingBlock1 = new \App\Components\Settings\SettingsBlock('testBlock');
+        $settingBlock1 = new SettingsBlock('testBlock');
         $settingBlock1->testInit($testArray, $testDbArray, true);
 
-        $settingBlock2 = new \App\Components\Settings\SettingsBlock('testBlock_user');
+        $settingBlock2 = new SettingsBlock('testBlock_user');
         $settingBlock2->testInit($testArray, $testDbArray, true);
 
         //$settingBlock = $this->getTestSettingBlock('testBlock');
-        $settingsFactory = $this->getMockBuilder('\App\Components\Settings\SettingsFactory')
+        $settingsFactory = $this->getMockBuilder('Code4\Settings\SettingsFactory')
             ->setConstructorArgs([[], 10, '', false])
             ->setMethods(['instantiateBlock'])
             ->getMock();
@@ -277,7 +281,7 @@ class SettingsTest extends TestCase
             ]
         ];
 
-        $settings = new \App\Components\Settings\SettingsBlock($name);
+        $settings = new SettingsBlock($name);
         $settings->testInit($testArray, $testDbArray, true);
         return $settings;
     }
