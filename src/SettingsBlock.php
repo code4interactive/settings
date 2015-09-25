@@ -155,7 +155,7 @@ class SettingsBlock {
             $settings_path = ltrim($path.'.'.$key, '.');
 
             //Zagłębiamy się tak głęboko aż value nie będzie tablicą asocjacyjną
-            if (is_array($value) && isAssoc($value)) {
+            if (is_array($value) && array_is_assoc($value)) {
                 $defaultSettings = $this->mergeArrays($defaultSettings, $value, $settings_path);
             } else {
                 $defaultSettings = $this->setRecursive($defaultSettings, $settings_path, $value);

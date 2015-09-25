@@ -223,7 +223,7 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
         $i = $settingsFactory->get('testBlock.resource_types.machine.icon');
         $this->assertEquals('globalValue', $i);
     }
-    
+
     private function getTestSettingBlock($name) {
         $testArray = [
             'resource_types' => [
