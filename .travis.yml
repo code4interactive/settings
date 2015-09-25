@@ -24,7 +24,7 @@ install:
 
 script:
   - phpunit
- 
+
 notifications:
   email:
     on_success: never

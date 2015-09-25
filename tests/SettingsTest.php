@@ -94,8 +94,6 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
 
         $settingsFactory->method('instantiateBlock')->will($this->returnValue($settingBlock));
 
-        //fwrite(STDERR, print_r($settingsFactory->getBlocksCollection()->has('global'), TRUE));
-
         //TEST 1 - Lazy Load wyłączony więc blok powinien być od razu załadowany
         $settingsFactory->addBlock('testBlock');
         $blocks = $settingsFactory->getBlocksCollection();
@@ -135,8 +133,6 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
         $blocks = $settingsFactory->getBlocksCollection();
         $this->assertEquals(true, $blocks->has('testBlock'));
     }
-
-
 
     public function testSettingsInheritance() {
         $testArray = [
@@ -194,13 +190,11 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
         $settingBlock2 = new SettingsBlock('testBlock_user');
         $settingBlock2->testInit($testArray, $testDbArray, true);
 
-        //$settingBlock = $this->getTestSettingBlock('testBlock');
         $settingsFactory = $this->getMockBuilder('Code4\Settings\SettingsFactory')
             ->setConstructorArgs([[], 10, '', false])
             ->setMethods(['instantiateBlock'])
             ->getMock();
 
-        //$settingsFactory->method('instantiateBlock')->will($this->returnValue($settingBlock1));
         $settingsFactory->method('instantiateBlock')->will($this->returnCallback(function($arg) use ($settingBlock1, $settingBlock2) {
             if ($arg == 'testBlock') {
                 return $settingBlock1;
@@ -229,8 +223,7 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
         $i = $settingsFactory->get('testBlock.resource_types.machine.icon');
         $this->assertEquals('globalValue', $i);
     }
-
-
+    
     private function getTestSettingBlock($name) {
         $testArray = [
             'resource_types' => [
