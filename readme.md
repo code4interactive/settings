@@ -15,14 +15,17 @@ PSRs you support to avoid any confusion with users and contributors.
 Via Composer
 
 ``` bash
-composer require Code4/settings
+composer require code4interactive/settings
 ```
 
 ## Usage
 
 ``` php
-$skeleton = new Code4\Skeleton();
-echo $skeleton->echoPhrase('Hello, Lykegenes!');
+
+$settings = new Code4/Settings/SettingsFactory(['global', 'global_user'], $user_id, $prefix, (bool) $lazyLoading);
+
+$settings->get('global.variable');
+
 ```
 
 ## Testing
@@ -42,7 +45,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/code4interactive/settings.svg?style=flat-square
 [ico-license]: https://img.shields.io/packagist/l/code4interactive/settings.svg?style=flat-square
-[ico-license]: https://img.shields.io/github/license/mashape/apistatus.svg
+[ico-license]: https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/code4interactive/settings/master.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/code4interactive/settings.svg?style=flat-square
 https://img.shields.io/github/license/mashape/apistatus.svg
