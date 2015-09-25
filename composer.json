@@ -1,6 +1,7 @@
 {
     "name": "code4/settings",
     "description": "Settings package with user / global inheritance",
+    "homepage": "https://github.com/code4interactive/settings",
     "license": "MIT",
     "authors": [
         {
@@ -20,6 +21,19 @@
     "autoload": {
         "psr-4": {
             "Code4\\Settings\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Code4\\Settings\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
         }
     }
 }
