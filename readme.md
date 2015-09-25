@@ -1,9 +1,8 @@
-# settings
+# Settings - Laravel Package
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
 [![Build Status][ico-travis]][link-travis]
-[![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 **Note:** Replace ```:author_name``` ```:author_username``` ```:author_website``` ```:author_email``` ```settings``` ```:package_description``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line.
@@ -43,10 +42,12 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/code4interactive/settings.svg?style=flat-square
 [ico-license]: https://img.shields.io/packagist/l/code4interactive/settings.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/code4interactive/settings.svg?branch=master?style=flat-square
+[ico-license]: https://img.shields.io/github/license/mashape/apistatus.svg
+[ico-travis]: https://img.shields.io/travis/code4interactive/settings/master.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/code4interactive/settings.svg?style=flat-square
-
+https://img.shields.io/github/license/mashape/apistatus.svg
 [link-packagist]: https://packagist.org/packages/code4interactive/settings
+
 [link-travis]: https://travis-ci.org/code4interactive/settings
 [link-downloads]: https://packagist.org/packages/code4interactive/settings
 [link-author]: https://github.com/code4interactive
