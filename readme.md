@@ -5,10 +5,8 @@
 [![Build Status][ico-travis]][link-travis]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-**Note:** Replace ```:author_name``` ```:author_username``` ```:author_website``` ```:author_email``` ```settings``` ```:package_description``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line.
-
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
+This package allows to easy manage global / user settings. Initial data structure is located in config files
+and is mirrored to db after first usage.
 
 ## Install
 
@@ -16,17 +14,36 @@ Via Composer
 
 ``` bash
 composer require code4interactive/settings
+php artisan vendor:publish --provider="Code4\Settings\SettingsServiceProvider"
+php artisan migrate
 ```
 
 ## Usage
 
 ``` php
+// config/global.php
+return [
+    foo: "bar";
+];
+
+// config/global_user.php
+return [
+    foo: "baz";
+];
 
 $settings = new Code4/Settings/SettingsFactory(['global', 'global_user'], $user_id, $prefix, (bool) $lazyLoading);
+$settings->get('global.foo');  //returns: baz
 
-$settings->get('global.variable');
-
+//Without inheritance
+$settings->get('global.foo', false);  //returns: bar
 ```
+
+
+### Inheritance
+
+Use null or 'inherit' keyword in user settings to inherit from parent.
+
+User config file has to have _user suffix.
 
 ## Testing
 
@@ -48,7 +65,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-license]: https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/code4interactive/settings/master.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/code4interactive/settings.svg?style=flat-square
-https://img.shields.io/github/license/mashape/apistatus.svg
 [link-packagist]: https://packagist.org/packages/code4interactive/settings
 
 [link-travis]: https://travis-ci.org/code4interactive/settings

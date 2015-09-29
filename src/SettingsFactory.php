@@ -14,16 +14,47 @@ class SettingsFactory {
 
     protected $user_id;
 
-    public function __construct($settingBlocks = [], $user_id, $configFilePrefix='', $lazyLoading = false) {
+    public function __construct($settingBlocks = [], $user_id = null, $configFilePrefix = '', $lazyLoading = false) {
+        $this->user_id = $user_id;
         $this->configFilePrefix = $configFilePrefix;
         $this->settings = new Collection();
-        $this->user_id = $user_id;
         $this->lazyLoading = $lazyLoading;
 
-        foreach ($settingBlocks as $block)
-        {
+        $this->setSettingBlocks($settingBlocks);
+    }
+
+    /**
+     * @param bool $lazyLoad
+     * @return $this
+     */
+    public function setLazyLoad($lazyLoad) {
+        $this->lazyLoading = (bool) $lazyLoad;
+        return $this;
+    }
+
+    /**
+     * @param $user_id
+     * @return $this
+     */
+    public function setUserId($user_id) {
+        $this->user_id = $user_id;
+        return $this;
+    }
+
+    /**
+     * @param string $configFilePrefix
+     * @return $this
+     */
+    public function setConfigFilePrefix($configFilePrefix) {
+        $this->configFilePrefix = $configFilePrefix;
+        return $this;
+    }
+
+    public function setSettingBlocks($settingBlocks) {
+        foreach ($settingBlocks as $block) {
             $this->addBlock($block);
         }
+        return $this;
     }
 
     /**
@@ -53,20 +84,19 @@ class SettingsFactory {
         }
 
         $block = $this->instantiateBlock($this->configFilePrefix.$oBlockName, $user_id);
-        $block->init();
         $this->settings->put($this->configFilePrefix.$oBlockName, $block);
     }
 
     /**
      * Instancjonuje obiekt bloku
-     * @param $oBlockName
+     * @param $oBlockName - z prefixem
      * @param int|null $user_id
      * @return SettingsBlock
      */
     public function instantiateBlock($oBlockName, $user_id = null) {
-        return new SettingsBlock($oBlockName, $user_id);
+        $defaultData = \Config::has($oBlockName) ? \Config::get($oBlockName) : [];
+        return new SettingsBlock($oBlockName, $defaultData, $user_id);
     }
-
 
     /**
      * Pobiera blok ustawień sprawdzając czy został załadowany.
@@ -79,15 +109,14 @@ class SettingsFactory {
 
         if (!$this->settings->has($this->configFilePrefix.$oBlockName)
             && in_array($oBlockName, $this->blocksList)) {
-                $this->loadBlock($oBlockName);
+                $this->loadBlock($oBlockName, $this->user_id);
         }
 
         if ($this->settings->has($this->configFilePrefix.$oBlockName)) {
             return $this->settings->get($this->configFilePrefix.$oBlockName);
         }
 
-        throw new \Exception('Block '.$this->configFilePrefix.$oBlockName.' not found or cant be loaded!');
-        die();
+        throw new \Exception('Block '.$this->configFilePrefix.$oBlockName.' not found or can\'t be loaded!');
     }
 
     /**
@@ -157,21 +186,21 @@ class SettingsFactory {
         throw new \Exception('Setting '.$oSettingPath.' not found');
     }
 
-
     /**
      * Zapisując settingsy musimy wyraźnie wskazać czy zapisujemy ustawienie dla usera czy globalne dlatego nie robimy
      * automatycznego dziedziczenia
      * @param $oSettingPath
      * @param $value
+     * @param bool $create
      * @throws \Exception
      */
-    public function set($oSettingPath, $value) {
+    public function set($oSettingPath, $value, $create=false) {
         $settingPath = explode('.', $oSettingPath);
         $oBlockName = array_shift($settingPath);
         $settingPath = implode('.', $settingPath);
 
         if ($this->hasBlock($oBlockName)) {
-            $this->getBlock($oBlockName)->set($settingPath, $value);
+            $this->getBlock($oBlockName)->set($settingPath, $value, $create);
         }
     }
 
@@ -183,8 +212,6 @@ class SettingsFactory {
         return $this->settings;
     }
 
-
-
     /**
      * Przelatujemy po wszystkich załadowanych settingsach i zapisujemy je
      * Settingsy same pilnują czy były modyfikowane więc zapisane będą tylko te które się zmieniły od załadowania
@@ -195,10 +222,7 @@ class SettingsFactory {
         }
     }
 
-
-    public function terminate() {
+    public function __destruct() {
         $this->save();
     }
-
-
 }
