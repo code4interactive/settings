@@ -3,6 +3,7 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
 [![Build Status][ico-travis]][link-travis]
+[![Circle CI][ico-circle]](https://circleci.com/gh/code4interactive/settings/tree/master)
 [![Total Downloads][ico-downloads]][link-downloads]
 
 This package allows to easy manage global / user settings. Initial data structure is located in config files
@@ -61,9 +62,9 @@ composer test
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/code4interactive/settings.svg?style=flat-square
-[ico-license]: https://img.shields.io/packagist/l/code4interactive/settings.svg?style=flat-square
 [ico-license]: https://img.shields.io/github/license/code4interactive/settings.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/code4interactive/settings/master.svg?style=flat-square
+[ico-circle]: https://circleci.com/gh/code4interactive/settings/tree/master.svg?style=svg
 [ico-downloads]: https://img.shields.io/packagist/dt/code4interactive/settings.svg?style=flat-square
 [link-packagist]: https://packagist.org/packages/code4interactive/settings
 
@@ -71,4 +72,5 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-downloads]: https://packagist.org/packages/code4interactive/settings
 [link-author]: https://github.com/code4interactive
 [link-contributors]: ../../contributors
+
 
