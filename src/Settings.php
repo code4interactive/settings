@@ -10,7 +10,8 @@ class Settings {
     }
 
     public function __call($name, $arg) {
-        return call_user_func($this->settings->$name(), $arg);
+        //return call_user_func($this->settings->$name(), $arg);
+        return call_user_func_array(array($this->settings, $name), $arg);
     }
 
 

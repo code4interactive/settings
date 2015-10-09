@@ -62,7 +62,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/code4interactive/settings.svg?style=flat-square
 [ico-license]: https://img.shields.io/packagist/l/code4interactive/settings.svg?style=flat-square
-[ico-license]: https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square
+[ico-license]: https://img.shields.io/github/license/code4interactive/settings.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/code4interactive/settings/master.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/code4interactive/settings.svg?style=flat-square
 [link-packagist]: https://packagist.org/packages/code4interactive/settings
