@@ -108,6 +108,14 @@ class SettingsBlock {
     }
 
     /**
+     * Ustawia defaultSettings - przydatne gdy generujemy ustawienia z innego źródła niż plik konfiguracyjny
+     * @param array $defaultSettings
+     */
+    public function defaultSettings($defaultSettings) {
+        $this->defaultSettings = $defaultSettings;
+    }
+
+    /**
      * UWAGA! Przywraca domyślne ustawienia i zaznacza do zapisania w bazie
      */
     public function restoreDefault() {
